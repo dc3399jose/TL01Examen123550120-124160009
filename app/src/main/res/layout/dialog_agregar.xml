@@ -11,12 +11,20 @@
         android:layout_height="wrap_content"
         android:hint="Nombre"/>
 
+    <Spinner
+        android:id="@+id/spinnerPais"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/paises_codigos"
+        android:padding="8dp"/>
+
     <EditText
         android:id="@+id/etTelefono"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Teléfono"
-        android:inputType="phone"/>
+        android:inputType="phone"
+        android:digits="0123456789 -+"/>
 
     <EditText
         android:id="@+id/etNota"

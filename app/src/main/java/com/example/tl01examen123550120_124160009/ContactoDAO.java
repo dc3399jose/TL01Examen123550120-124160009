@@ -26,6 +26,17 @@ public class ContactoDAO {
         db.close();
     }
 
+    public void actualizar(Contacto contacto) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("nombre", contacto.getNombre());
+        values.put("telefono", contacto.getTelefono());
+        values.put("nota", contacto.getNota());
+        values.put("imagen", contacto.getImagen());
+        db.update(DatabaseHelper.TABLE_NAME, values, "id=?", new String[]{String.valueOf(contacto.getId())});
+        db.close();
+    }
+
     public void eliminar(int id) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.delete(DatabaseHelper.TABLE_NAME, "id=?", new String[]{String.valueOf(id)});

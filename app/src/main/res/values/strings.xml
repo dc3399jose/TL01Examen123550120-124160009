@@ -1,3 +1,40 @@
 <resources>
     <string name="app_name">TL01Examen123550120-124160009</string>
+    <string-array name="paises_codigos">
+        <item>Honduras (+504)</item>
+        <item>El Salvador (+503)</item>
+        <item>Guatemala (+502)</item>
+        <item>Nicaragua (+505)</item>
+        <item>Costa Rica (+506)</item>
+        <item>Panamá (+507)</item>
+        <item>México (+52)</item>
+        <item>USA (+1)</item>
+        <item>Canadá (+1)</item>
+        <item>Belice (+501)</item>
+        <item>Argentina (+54)</item>
+        <item>Bolivia (+591)</item>
+        <item>Brasil (+55)</item>
+        <item>Chile (+56)</item>
+        <item>Colombia (+57)</item>
+        <item>Ecuador (+593)</item>
+        <item>Guyana (+592)</item>
+        <item>Paraguay (+595)</item>
+        <item>Perú (+51)</item>
+        <item>Suriname (+597)</item>
+        <item>Uruguay (+598)</item>
+        <item>Venezuela (+58)</item>
+        <item>España (+34)</item>
+        <item>Francia (+33)</item>
+        <item>Alemania (+49)</item>
+        <item>Italia (+39)</item>
+        <item>Reino Unido (+44)</item>
+        <item>Portugal (+351)</item>
+        <item>China (+86)</item>
+        <item>Japón (+81)</item>
+        <item>Corea del Sur (+82)</item>
+        <item>India (+91)</item>
+        <item>Australia (+61)</item>
+        <item>Nueva Zelanda (+64)</item>
+        <item>Cuba (+53)</item>
+    </string-array>
 </resources>

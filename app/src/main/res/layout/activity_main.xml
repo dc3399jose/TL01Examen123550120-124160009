@@ -8,100 +8,48 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#4CAF50"
-        android:padding="16dp"
-        android:gravity="center">
-
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@mipmap/ic_launcher"
-            android:layout_marginEnd="10dp"/>
+        android:background="#00BCD4"
+        android:gravity="center"
+        android:padding="16dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mis Contactos"
+            android:text="Gestión de Contactos"
             android:textColor="#FFFFFF"
             android:textSize="22sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="#FFFFFF"
-        android:padding="8dp"
-        android:layout_margin="8dp"
-        android:elevation="2dp">
-
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@android:drawable/ic_menu_search"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="8dp"/>
-
-        <EditText
-            android:id="@+id/etBuscar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="Buscar contacto..."
-            android:background="@null"
-            android:padding="8dp"
-            android:singleLine="true"/>
-
-        <Button
-            android:id="@+id/btnBuscar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Buscar"
-            android:textSize="12sp"
-            style="?android:attr/borderlessButtonStyle"
-            android:textColor="#4CAF50"
-            android:textStyle="bold"/>
-
-    </LinearLayout>
-
-    <ListView
-        android:id="@+id/lvContactos"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:divider="@null"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="8dp">
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="32dp">
 
         <Button
             android:id="@+id/btnAgregar"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Agregar"
-            android:drawableStart="@android:drawable/ic_input_add"
-            android:drawablePadding="8dp"
-            android:backgroundTint="#4CAF50"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="#00BCD4"
+            android:padding="16dp"
+            android:text="Agregar Contacto"
             android:textColor="#FFFFFF"
-            android:layout_marginEnd="4dp"/>
+            android:textSize="18sp" />
 
         <Button
-            android:id="@+id/btnEliminar"
-            android:layout_width="0dp"
+            android:id="@+id/btnContactosSalvados"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Eliminar"
-            android:drawableStart="@android:drawable/ic_delete"
-            android:drawablePadding="8dp"
-            android:backgroundTint="#F44336"
+            android:backgroundTint="#00BCD4"
+            android:padding="16dp"
+            android:text="Contactos Guardados"
             android:textColor="#FFFFFF"
-            android:layout_marginStart="4dp"/>
+            android:textSize="18sp" />
 
     </LinearLayout>
 
