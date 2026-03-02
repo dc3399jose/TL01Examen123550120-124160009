@@ -11,44 +11,52 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.List;
 
+// Esta pantalla muestra la lista de todos los contactos guardados
 public class ContactosGuardadosActivity extends AppCompatActivity {
 
-    EditText etBuscar;
-    ListView lvContactos;
+    //COMPONENTES DE LA PANTALLA
+    EditText etBuscar;     // Campo donde se escribe para buscar
+    ListView lvContactos;  // La lista visual donde aparecen los contactos
     Button btnBuscar, btnVolver;
-    ContactoDAO dao;
-    ContactoAdapter adapter;
-    List<Contacto> lista;
+
+    //Herramientas necesarias
+    ContactoDAO dao;       // Asistente de base de datos
+    ContactoAdapter adapter; // Organizador de la lista
+    List<Contacto> lista;   // La lista de datos reales
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contactos_guardados);
 
+        //unir componentes
         etBuscar = findViewById(R.id.etBuscar);
         lvContactos = findViewById(R.id.lvContactos);
         btnBuscar = findViewById(R.id.btnBuscar);
         btnVolver = findViewById(R.id.btnVolverPrincipal);
 
         dao = new ContactoDAO(this);
-        cargarLista();
+        cargarLista(); // Cargamos los contactos al abrir la pantalla
 
+        //accion buscar
         btnBuscar.setOnClickListener(v -> {
             String texto = etBuscar.getText().toString();
-            lista = dao.buscar(texto);
-            adapter = new ContactoAdapter(this, lista);
-            lvContactos.setAdapter(adapter);
+            lista = dao.buscar(texto); // Buscamos en la base de datos
+            adapter = new ContactoAdapter(this, lista); // Actualizamos el organizador
+            lvContactos.setAdapter(adapter); // Mostramos los resultados
             if(lista.isEmpty()){
                 Toast.makeText(this, "No se encontraron contactos", Toast.LENGTH_SHORT).show();
             }
         });
 
+        //accion buscar (tiempo real)
+        // Se ejecuta automáticamente cada vez que el usuario escribe una letra
         etBuscar.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                lista = dao.buscar(s.toString());
+                lista = dao.buscar(s.toString()); // Busca mientras escribe
                 adapter = new ContactoAdapter(ContactosGuardadosActivity.this, lista);
                 lvContactos.setAdapter(adapter);
             }
@@ -56,9 +64,12 @@ public class ContactosGuardadosActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {}
         });
 
+
+        // Al tocar un contacto de la lista, abre la pantalla de detalle
         lvContactos.setOnItemClickListener((parent, view, position, id) -> {
             Contacto c = lista.get(position);
             Intent intent = new Intent(this, DetalleActivity.class);
+            // Pasamos los datos del contacto seleccionado a la pantalla de detalle
             intent.putExtra("id", c.getId());
             intent.putExtra("nombre", c.getNombre());
             intent.putExtra("telefono", c.getTelefono());
@@ -66,18 +77,21 @@ public class ContactosGuardadosActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        btnVolver.setOnClickListener(v -> finish());
+        //boton de volver
+        btnVolver.setOnClickListener(v -> finish()); // Cierra esta pantalla y regresa a la principal
     }
+
 
     @Override
     protected void onResume() {
         super.onResume();
-        cargarLista(); // Refrescar por si se borró o editó en detalle
+        cargarLista(); // Recarga la lista por si se editó o borró algo en el detalle
     }
 
+    //funcion helper: cargar lista
     private void cargarLista() {
-        lista = dao.obtenerTodos();
+        lista = dao.obtenerTodos(); // Trae todos los contactos de la base de datos
         adapter = new ContactoAdapter(this, lista);
-        lvContactos.setAdapter(adapter);
+        lvContactos.setAdapter(adapter); // Dibuja la lista
     }
 }

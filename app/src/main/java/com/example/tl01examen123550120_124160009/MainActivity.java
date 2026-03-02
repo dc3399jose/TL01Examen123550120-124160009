@@ -13,9 +13,11 @@ import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
 
+    // Componentes de la interfaz de usuario
     EditText etNombre, etTelefono, etNota;
     Spinner spinnerPais;
     Button btnSalvar, btnContactosSalvados;
+    // Asistente para manejar la base de datos
     ContactoDAO dao;
 
     @Override
@@ -23,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Inicializar componentes
+        // Inicializar componentes: Conectamos las variables de Java con los elementos visuales (XML)
         etNombre = findViewById(R.id.etNombreMain);
         etTelefono = findViewById(R.id.etTelefonoMain);
         etNota = findViewById(R.id.etNotaMain);
@@ -31,10 +33,13 @@ public class MainActivity extends AppCompatActivity {
         btnSalvar = findViewById(R.id.btnSalvarMain);
         btnContactosSalvados = findViewById(R.id.btnContactosSalvadosMain);
 
+        // Preparamos el asistente de base de datos
         dao = new ContactoDAO(this);
 
+        // Acción del botón guardar: Al tocarlo, ejecuta la función para guardar
         btnSalvar.setOnClickListener(v -> salvarContacto());
 
+        // Acción del botón para ver contactos: Al tocarlo, abre la pantalla de lista
         btnContactosSalvados.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, ContactosGuardadosActivity.class);
             startActivity(intent);
@@ -42,12 +47,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void salvarContacto() {
+        // Obtenemos el texto que el usuario escribió
         String nombre = etNombre.getText().toString().trim();
         String telefonoIngresado = etTelefono.getText().toString().trim();
         String nota = etNota.getText().toString().trim();
         String paisSeleccionado = spinnerPais.getSelectedItem().toString();
 
-        // Validaciones con mensajes de alerta Toast (según imagen)
+        // Validaciones: Comprobamos que ningún campo obligatorio esté vacío
         if (nombre.isEmpty()) {
             Toast.makeText(this, "Debe escribir un nombre", Toast.LENGTH_SHORT).show();
             return;
@@ -63,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        // Extraer código de país
+        // Procesamiento del teléfono: Extraemos el código de país (ej: +504) del menú desplegable
         String codigoPais = "";
         Pattern p = Pattern.compile("\\((.*?)\\)");
         Matcher m = p.matcher(paisSeleccionado);
@@ -71,18 +77,20 @@ public class MainActivity extends AppCompatActivity {
             codigoPais = m.group(1).split(",")[0].trim();
         }
 
+        // Unimos el código de país con el número telefónico
         String telefonoFinal = codigoPais + " " + telefonoIngresado;
 
-        // Guardar contacto
+        // Guardado: Creamos la "ficha" del contacto y le pedimos al asistente (DAO) que lo guarde
         Contacto c = new Contacto(0, nombre, telefonoFinal, nota, "");
         dao.agregar(c);
 
-        // Limpiar campos
+        // Limpieza: Borramos los campos de texto para que estén listos para otro registro
         etNombre.setText("");
         etTelefono.setText("");
         etNota.setText("");
         spinnerPais.setSelection(0);
 
-        Toast.makeText(this, "✅ Contacto salvado exitosamente", Toast.LENGTH_SHORT).show();
+        // Mensaje de éxito para el usuario
+        Toast.makeText(this, "Contacto salvado exitosamente", Toast.LENGTH_SHORT).show();
     }
 }
