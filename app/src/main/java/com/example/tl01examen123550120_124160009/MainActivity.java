@@ -7,14 +7,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btnAgregar, btnContactosSalvados;
+    EditText etNombre, etTelefono, etNota;
+    Spinner spinnerPais;
+    Button btnSalvar, btnContactosSalvados;
     ContactoDAO dao;
 
     @Override
@@ -22,12 +23,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnAgregar = findViewById(R.id.btnAgregar);
-        btnContactosSalvados = findViewById(R.id.btnContactosSalvados);
+        // Inicializar componentes
+        etNombre = findViewById(R.id.etNombreMain);
+        etTelefono = findViewById(R.id.etTelefonoMain);
+        etNota = findViewById(R.id.etNotaMain);
+        spinnerPais = findViewById(R.id.spinnerPaisMain);
+        btnSalvar = findViewById(R.id.btnSalvarMain);
+        btnContactosSalvados = findViewById(R.id.btnContactosSalvadosMain);
 
         dao = new ContactoDAO(this);
 
-        btnAgregar.setOnClickListener(v -> mostrarDialogoAgregar());
+        btnSalvar.setOnClickListener(v -> salvarContacto());
 
         btnContactosSalvados.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, ContactosGuardadosActivity.class);
@@ -35,46 +41,48 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void mostrarDialogoAgregar() {
-        View view = getLayoutInflater().inflate(R.layout.dialog_agregar, null);
-        EditText etNombre = view.findViewById(R.id.etNombre);
-        EditText etTelefono = view.findViewById(R.id.etTelefono);
-        EditText etNota = view.findViewById(R.id.etNota);
-        Spinner spinnerPais = view.findViewById(R.id.spinnerPais);
+    private void salvarContacto() {
+        String nombre = etNombre.getText().toString().trim();
+        String telefonoIngresado = etTelefono.getText().toString().trim();
+        String nota = etNota.getText().toString().trim();
+        String paisSeleccionado = spinnerPais.getSelectedItem().toString();
 
-        new AlertDialog.Builder(this)
-                .setTitle("Agregar Contacto")
-                .setView(view)
-                .setPositiveButton("Guardar", (dialog, which) -> {
-                    String nombre = etNombre.getText().toString().trim();
-                    String telefonoIngresado = etTelefono.getText().toString().trim();
-                    String nota = etNota.getText().toString();
-                    String paisSeleccionado = spinnerPais.getSelectedItem().toString();
+        // Validaciones con mensajes de alerta Toast (según imagen)
+        if (nombre.isEmpty()) {
+            Toast.makeText(this, "Debe escribir un nombre", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-                    if (nombre.isEmpty() || telefonoIngresado.isEmpty()) {
-                        Toast.makeText(this, "Nombre y teléfono son obligatorios", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
+        if (telefonoIngresado.isEmpty()) {
+            Toast.makeText(this, "Debe escribir un teléfono", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-                    String codigoPais = "";
-                    Pattern p = Pattern.compile("\\((.*?)\\)");
-                    Matcher m = p.matcher(paisSeleccionado);
-                    if (m.find()) {
-                        codigoPais = m.group(1).split(",")[0].trim();
-                    }
+        if (nota.isEmpty()) {
+            Toast.makeText(this, "Debe escribir una nota", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-                    String telefonoFinal = codigoPais + " " + telefonoIngresado;
+        // Extraer código de país
+        String codigoPais = "";
+        Pattern p = Pattern.compile("\\((.*?)\\)");
+        Matcher m = p.matcher(paisSeleccionado);
+        if (m.find()) {
+            codigoPais = m.group(1).split(",")[0].trim();
+        }
 
-                    if (!telefonoIngresado.matches("[0-9\\s\\-]+")) {
-                        Toast.makeText(this, "Formato de teléfono inválido", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
+        String telefonoFinal = codigoPais + " " + telefonoIngresado;
 
-                    Contacto c = new Contacto(0, nombre, telefonoFinal, nota, "");
-                    dao.agregar(c);
-                    Toast.makeText(this, "Contacto agregado", Toast.LENGTH_SHORT).show();
-                })
-                .setNegativeButton("Cancelar", null)
-                .show();
+        // Guardar contacto
+        Contacto c = new Contacto(0, nombre, telefonoFinal, nota, "");
+        dao.agregar(c);
+
+        // Limpiar campos
+        etNombre.setText("");
+        etTelefono.setText("");
+        etNota.setText("");
+        spinnerPais.setSelection(0);
+
+        Toast.makeText(this, "✅ Contacto salvado exitosamente", Toast.LENGTH_SHORT).show();
     }
 }

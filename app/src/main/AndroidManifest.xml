@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TL01Examen123550120124160009">
 
-        <activity android:name=".SplashActivity"
+        <activity android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,9 +24,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MainActivity"/>
         <activity android:name=".DetalleActivity"/>
         <activity android:name=".ContactosGuardadosActivity"/>
+        <activity android:name=".SplashActivity"/>
 
     </application>
 
