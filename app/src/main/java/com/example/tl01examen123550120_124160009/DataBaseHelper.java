@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 // base de datos donde guardamos la info de nuestros contactos
 class DatabaseHelper extends SQLiteOpenHelper {
 
-    // Nombres de la base de datos y tabla ---
+    // Nombres de la base de datos y tabla
     public static final String DATABASE_NAME = "contactos.db"; // Nombre del archivo físico
     public static final String TABLE_NAME = "contactos";// Nombre de la tabla dentro del archivo
     public static final int DATABASE_VERSION = 1;  // Versión para gestionar cambios futuros
@@ -22,7 +22,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         // Ejecutamos el comando SQL para crear la tabla con sus campos
         db.execSQL("CREATE TABLE " + TABLE_NAME + " (" +
-                "id INTEGER PRIMARY KEY AUTOINCREMENT, " + // ID único automático
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " + // ID unico automatico
                 "nombre TEXT, " +                     // Campo de texto para nombre
                 "telefono TEXT, " +                  // Campo de texto para teléfono
                 "nota TEXT, " +                    // Campo de texto para nota

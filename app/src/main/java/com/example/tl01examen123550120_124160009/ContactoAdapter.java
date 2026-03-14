@@ -59,7 +59,7 @@ public class ContactoAdapter extends ArrayAdapter<Contacto> {
         tvTelefono.setText(contacto.getTelefono());
         tvNota.setText(contacto.getNota());
 
-        //se le asigna un color diferente por contacto basado en su posición ---
+        //se le asigna un color diferente por contacto
         int color = colores[position % colores.length];
         ivContacto.setBackgroundTintList(
                 android.content.res.ColorStateList.valueOf(color));

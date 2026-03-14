@@ -15,8 +15,8 @@ import java.util.List;
 public class ContactosGuardadosActivity extends AppCompatActivity {
 
     //COMPONENTES DE LA PANTALLA
-    EditText etBuscar;     // Campo donde se escribe para buscar
-    ListView lvContactos;  // La lista visual donde aparecen los contactos
+    EditText etBuscar;
+    ListView lvContactos;
     Button btnBuscar, btnVolver;
 
     //Herramientas necesarias
@@ -78,7 +78,7 @@ public class ContactosGuardadosActivity extends AppCompatActivity {
         });
 
         //boton de volver
-        btnVolver.setOnClickListener(v -> finish()); // Cierra esta pantalla y regresa a la principal
+        btnVolver.setOnClickListener(v -> finish());
     }
 
 

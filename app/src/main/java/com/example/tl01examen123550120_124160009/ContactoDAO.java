@@ -7,7 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-// DAO "Data Access Object" (Objeto de Acceso a Datos) Es el encargado de todas las operaciones con la base de datos.
+// DAO "Data Access Object" (Objeto de Acceso a Datos)
+// nuestro encargado de todas las operaciones con la base de datos.
 public class ContactoDAO {
 
     private DatabaseHelper dbHelper; // Asistente que crea la base de datos
@@ -25,7 +26,6 @@ public class ContactoDAO {
         values.put("nombre", contacto.getNombre());
         values.put("telefono", contacto.getTelefono());
         values.put("nota", contacto.getNota());
-        values.put("imagen", contacto.getImagen());
 
         db.insert(DatabaseHelper.TABLE_NAME, null, values); // Insertamos la fila
         db.close(); // Cerramos la conexión
@@ -39,8 +39,6 @@ public class ContactoDAO {
         values.put("nombre", contacto.getNombre());
         values.put("telefono", contacto.getTelefono());
         values.put("nota", contacto.getNota());
-        values.put("imagen", contacto.getImagen());
-
         // Actualizamos donde el ID coincida
         db.update(DatabaseHelper.TABLE_NAME, values, "id=?", new String[]{String.valueOf(contacto.getId())});
         db.close();
